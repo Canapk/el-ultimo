@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Igualdad de Género y No Discriminación del TECNM</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff; /* Fondo por defecto */
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-image: url("fondo.jpg"); /* Cambia la URL por la imagen que desees */
+            background-size: cover;
+            background-position: center;
+        }
+        h1 {
+            color: #000000; /* Color negro fuerte para el título */
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3); /* Sombra suave para el título */
+        }
+        #game {
+            background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco con opacidad */
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+        }
+        #question {
+            margin: 20px 0;
+            font-size: 1.2em;
+            color: #34495e;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 1em;
+            margin: 5px 0;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .result {
+            font-weight: bold;
+            color: #27ae60;
+            margin-top: 20px;
+        }
+        .feedback {
+            font-size: 1em;
+            margin-top: 10px;
+            color: #e74c3c;
+        }
+        footer {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #000000; /* Color negro fuerte para el pie de página */
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3); /* Sombra suave para el pie de página */
+        }
+    </style>
+</head>
+<body>
+    <h1>Política de Igualdad de Género y No Discriminación del TECNM</h1>
+    <div id="game">
+        <div id="question"></div>
+        <div id="options"></div>
+        <div class="result" id="result"></div>
+        <div class="feedback" id="feedback"></div>
+    </div>
+
+    <footer>
+        &copy; 2024 Canapk
+    </footer>
+
+    <script>
+        const questions = [
+            {
+                question: "¿Cuál de las siguientes acciones respeta los derechos humanos?",
+                options: ["Maltratar a alguien", "Promover el respeto", "Ignorar el sufrimiento"],
+                answer: 1
+            },
+            {
+                question: "¿Qué significa garantizar la igualdad de oportunidades?",
+                options: ["Ofrecer lo mismo a todos", "Proporcionar recursos según necesidades", "No hacer nada"],
+                answer: 1
+            },
+            {
+                question: "¿Cuál de las siguientes acciones previene la discriminación?",
+                options: ["Aceptar todas las diferencias", "Rechazar a quienes son diferentes", "Ignorar las desigualdades"],
+                answer: 0
+            },
+            {
+                question: "¿Qué se considera una forma de violencia en la comunidad?",
+                options: ["Apoyar a las víctimas", "Abusar de alguien", "Escuchar a los demás"],
+                answer: 1
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let incorrect = 0;
+
+        function loadQuestion() {
+            const q = questions[currentQuestion];
+            document.getElementById('question').innerText = q.question;
+            const optionsHtml = q.options.map((option, index) =>
+                `<button onclick="checkAnswer(${index})">${option}</button>`
+            ).join('');
+            document.getElementById('options').innerHTML = optionsHtml;
+            document.getElementById('result').innerText = '';
+            document.getElementById('feedback').innerText = '';
+        }
+
+        function checkAnswer(selected) {
+            const correct = questions[currentQuestion].answer;
+            if (selected === correct) {
+                score++;
+                document.getElementById('feedback').innerText = "¡Correcto!";
+            } else {
+                incorrect++;
+                document.getElementById('feedback').innerText = "Incorrecto. Intenta de nuevo.";
+            }
+            currentQuestion++;
+
+            if (currentQuestion < questions.length) {
+                setTimeout(loadQuestion, 2000); // Cargar la siguiente pregunta después de 2 segundos
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('options').innerHTML = '';
+            document.getElementById('feedback').innerText = '';
+            document.getElementById('result').innerText = `¡Has completado el juego! Tu puntaje: ${score}/${questions.length} (Aciertos: ${score}, Errores: ${incorrect})`;
+        }
+
+        // Cargar la primera pregunta
+        loadQuestion();
+    </script>
+</body>
+</html>
